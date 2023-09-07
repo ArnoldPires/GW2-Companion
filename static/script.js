@@ -2,12 +2,12 @@ document.querySelector('#gw2').addEventListener('click', lookAtAccount)
 
 function lookAtAccount() {
 
-  let apiAccount = fetch("https://api.guildwars2.com/v2/account?access_token=FC2B1C80-8B27-AC4D-AE8E-7765EBC731F8962612C7-C834-4EA9-9798-64FA7E0C739E&guild_id=91675510-604A-E611-80D4-E4115BD19D24&guild_id=15D1071B-F316-4824-8518-E19D3A7AD79C&guild_id=516E880E-BC84-E911-81AA-D66D0E22CAB6&guild_id=516E880E-BC84-E911-81AA-D66D0E22CAB6&guild_id=516E880E-BC84-E911-81AA-D66D0E22CAB6 91675510-604A-E611-80D4-E4115BD19D24&guild_id=91675510-604A-E611-80D4-E4115BD19D24&guild_id=91675510-604A-E611-80D4-E4115BD19D24, &guild_id=91675510-604A-E611-80D4-E4115BD19D24, BAF85407-0DD8-4968-B278-B5BDB0FDD438")
+  const apiAccount = fetch(`https://api.guildwars2.com/v2/account?access_token=${process.env.GW_API_KEY_Account}`);
+  const apiChar = fetch(`https://api.guildwars2.com/v2/characters?access_token=${process.env.GW_API_KEY_CHAR}`);
   let apiWorld = fetch("https://api.guildwars2.com/v2/worlds?ids=1008")
   let apiGuildOne = fetch("https://api.guildwars2.com/v1/guild_details?guild_id=516E880E-BC84-E911-81AA-D66D0E22CAB6");
   let apiGuildTwo = fetch("https://api.guildwars2.com/v1/guild_details?guild_id=91675510-604A-E611-80D4-E4115BD19D24")
-  let apiChar = fetch("https://api.guildwars2.com/v2/characters?access_token=FC2B1C80-8B27-AC4D-AE8E-7765EBC731F8962612C7-C834-4EA9-9798-64FA7E0C739E&guild_id=91675510-604A-E611-80D4-E4115BD19D24&guild_id=15D1071B-F316-4824-8518-E19D3A7AD79C&guild_id=516E880E-BC84-E911-81AA-D66D0E22CAB6")
-
+ 
   Promise.all([apiAccount, apiWorld, apiGuildOne, apiGuildTwo, apiChar]).then(data => {
     return Promise.all(data.map(r => r.json()))
   }).then(([dataAccount, dataWorld, dataGuildOne, dataGuildTwo, dataChar]) => {
