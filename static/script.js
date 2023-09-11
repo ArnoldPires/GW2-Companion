@@ -1,53 +1,78 @@
-document.querySelector('#gw2').addEventListener('click', lookAtAccount)
+async function fetchServerName(serverId) {
+  try {
+    const response = await fetch(`https://api.guildwars2.com/v2/worlds?id=${serverId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch server name (Status ${response.status})`);
+    }
 
-function lookAtAccount() {
+    const serverData = await response.json();
+    return serverData.name;
+  } catch (error) {
+    console.error("Error fetching server name:", error);
+    return "Unknown Server"; // Return a default name or handle the error as needed
+  }
+}
 
-  const apiAccount = fetch(`https://api.guildwars2.com/v2/account?access_token=${process.env.GW_API_KEY_Account}`);
-  const apiChar = fetch(`https://api.guildwars2.com/v2/characters?access_token=${process.env.GW_API_KEY_CHAR}`);
-  let apiWorld = fetch("https://api.guildwars2.com/v2/worlds?ids=1008")
-  let apiGuildOne = fetch("https://api.guildwars2.com/v1/guild_details?guild_id=516E880E-BC84-E911-81AA-D66D0E22CAB6");
-  let apiGuildTwo = fetch("https://api.guildwars2.com/v1/guild_details?guild_id=91675510-604A-E611-80D4-E4115BD19D24")
- 
-  Promise.all([apiAccount, apiWorld, apiGuildOne, apiGuildTwo, apiChar]).then(data => {
-    return Promise.all(data.map(r => r.json()))
-  }).then(([dataAccount, dataWorld, dataGuildOne, dataGuildTwo, dataChar]) => {
-    document.querySelector("#ac").innerText = dataAccount.created;
-    document.querySelector("#an").innerText = dataAccount.name;
-    document.querySelector("#ea").innerText = dataAccount.access[0] + ", ";
-    document.querySelector("#eaTwo").innerText = dataAccount.access[1] + ", ";
-    document.querySelector("#eaThree").innerText = dataAccount.access[2];
-    document.querySelector("#com").innerText = dataAccount.commander;
-    document.querySelector("#fl").innerText = dataAccount.fractal_level;
-    document.querySelector("#daily").innerText = dataAccount.daily_ap;
-    document.querySelector("#monthly").innerText = dataAccount.monthly_ap;
-    document.querySelector("#wvw").innerText = dataAccount.wvw_rank;
+function fetchAccountInfo() {
+  const apiKey = document.getElementById("apiKey").value;
 
-    document.querySelector("#world").innerText = "Jade Quarry";
-    document.querySelector("#pop").innerText = 'Full'
-    document.querySelector("#aa").innerText = '13 Years'
-    
-    document.querySelector("#gw").innerText = dataGuildOne.guild_name;
-    document.querySelector("#tag").innerText = dataGuildOne.tag;
+  // Make an API request to Guild Wars 2 API to get account information
+  fetch(`https://api.guildwars2.com/v2/account?access_token=${apiKey}`)
+    .then(response => response.json())
+    .then(async data => {
+      //Achievement Point total
 
-    document.querySelector("#gl").innerText = dataGuildTwo.guild_name;
-    document.querySelector("#tagTwo").innerText = dataGuildTwo.tag;
+      // Parse and format account creation date
+      const createdDate = new Date(data.created);
+      const formattedCreatedDate = `${(createdDate.getMonth() + 1).toString().padStart(2, '0')}-${createdDate.getDate().toString().padStart(2, '0')}-${createdDate.getFullYear()}`;
 
-    document.querySelector("#charOne").innerText = dataChar[0]
-    document.querySelector("#charTwo").innerText = dataChar[1];
-    document.querySelector("#charThree").innerText = dataChar[2];
-    document.querySelector("#charFour").innerText = dataChar[3];
-    document.querySelector("#charFive").innerText = dataChar[4];
-    document.querySelector("#charSix").innerText = dataChar[5];
-    document.querySelector("#charSeven").innerText = dataChar[6];
-    document.querySelector("#charEight").innerText = dataChar[7];
-    document.querySelector("#charNine").innerText = dataChar[8];
-    document.querySelector("#charTen").innerText = dataChar[9];
-    document.querySelector("#charEleven").innerText = dataChar[10];
-    document.querySelector("#charTwelve").innerText = dataChar[11];
-    document.querySelector("#charThirteen").innerText = dataChar[12];
-    document.querySelector("#charFourteen").innerText = dataChar[13];
-    document.querySelector("#charFifteen").innerText = dataChar[14];
-    document.querySelector("#charSixteen").innerText = dataChar[15];
-  })
-  
+      // Calculate age of the account in years (rounded down)
+      const currentDate = new Date();
+      const ageInMilliseconds = currentDate - createdDate;
+      const ageInYears = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24 * 365));
+
+      // Fetch server name
+      const serverId = data.world;
+      const serverName = await fetchServerName(serverId);
+      
+      // Display account information, including total achievement points
+      const accountInfo = document.getElementById("accountInfo");
+      accountInfo.innerHTML = `
+        <h2>Account Information:</h2>
+        <p>Account Creation date: ${formattedCreatedDate}</p>
+        <p>Account Name: ${data.name}</p>
+        <p>Server Name: ${serverName}</p> <!-- Use serverName variable here -->
+        <p>Age of your Account: ${ageInYears} years</p>
+        <p>Total Time Played: 10795 hours 25 minutes </p>
+        <p>Daily Achievement Points: ${data.daily_ap} earned </p>
+        <p>Monthly Achievement Points: ${data.monthly_ap} earned </p>
+        <p>Total Achievement Points: 33206 earned</p>
+        <p>Fractal Level: ${data.fractal_level}</p>
+        <p>Are you a Commander?: ${data.commander ? 'Yes' : 'No'}</p>
+        <p>Expansions Owned: ${data.access}</p>
+        <h2>Guilds:</h2>
+        <ul id="guildList"></ul>
+        <p>Guild Leader: ${data.guild_leader}</p>
+      `;
+
+      // Fetch and display guild names
+      data.guilds.forEach(guildId => {
+        fetch(`https://api.guildwars2.com/v2/guild/${guildId}`)
+          .then(response => response.json())
+          .then(guildData => {
+            const guildList = document.getElementById("guildList");
+            const guildNameItem = document.createElement("li");
+            guildNameItem.textContent = `${guildData.name}`;
+            guildList.appendChild(guildNameItem);
+          })
+          .catch(error => {
+            // Handle errors
+            console.error("Error fetching guild info:", error);
+          });
+      });
+    })
+    .catch(error => {
+      // Handle errors (e.g., invalid API key)
+      console.error("Error fetching account info:", error);
+    });
 }
