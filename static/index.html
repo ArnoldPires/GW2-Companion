@@ -10,9 +10,42 @@
 	</head>
 	<body>
 		<header>
-			<h1>Guild Wars 2 Info</h1>
-			<button id="gw2" type="button" name="button">Get</button>
+			<div>
+				<a href="#">Learn about the classes</a>
+			</div>
+			<div>
+				<a href="#">See my characters</a>
+				<a href="#">How to get your GW2 api key</a>
+			</div>
 		</header>
+		<h1>Guild Wars 2 Companion</h1>
+		<section class="api-container">
+			<form id="apiKeyForm">
+        <label for="apiKey">Enter your API key:</label>
+        <input type="text" id="apiKey" name="apiKey">
+        <button type="button" onclick="fetchAccountInfo()">Add your key</button>
+    </form>
+			<!--
+			<div class="row">
+				<div class="offset-md-1 col-md-10">
+					<form id="add" method="POST" action="/add" class="form-horizontal pt-4 pb-4 form-inline">
+    				<div class="form-group col-12 px-0">
+        			<label for="apikey">API key</label>
+    				</div>
+    				<div class="form-group col-12 px-0 pb-3">
+        			<input type="text" class="form-control col-12" id="apikey" name="api" value="" placeholder="e.g. 12345678-90AB-CDEF-1234-567890ABCDEF12345678-90AB-CDEF-1234-567890ABCDEF" required autofocus>
+    				</div>
+    				<div class="form-group">
+        			<button type="submit" class="btn btn-primary">Add your key</button>
+    				</div>
+					</form>
+				</div>
+			</div>
+			-->
+		</section>
+			<div id="accountInfo"></div>
+		<!-- 
+
 		<section class="main">
 			<section class="accountInfo">
 				<h2>Account Info</h2>
@@ -64,6 +97,7 @@
 				<p>Charater 16: <span class="style" id="charSixteen"></span></p>
 			</section>
 		</section>
+-->
 		<script type="text/javascript" src="script.js"></script>
 	</body>
 </html>
