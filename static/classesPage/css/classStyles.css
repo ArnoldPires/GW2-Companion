@@ -186,27 +186,16 @@ p {
 /* ------------------------ */
 /* Below 1344px (smaller screens) */
 /* ------------------------ */
-@media (max-width: 84em) {
-  
-}
+
 /* ------------------------ */
 /* Below 1200px (Landscape tablets) */
 /* ------------------------ */
-@media (max-width: 75em) {
-  html {
-    /* 9px / 16px = 0.5625 font-size: 56.25%; */
-    
-  }
-  
-}
+
 /* ------------------------ */
 /* Below 944px (tablets) */
 /* ------------------------ */
 @media (max-width: 59em) {
-  html {
-    /*8px / 16px = 0.5 = 50%  font-size: 50%;*/
-    
-  }
+
   body {
     background-size: 90em 100%;
   }

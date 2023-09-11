@@ -23,63 +23,87 @@
 body {
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
-header {
+#sidebar {
+  width: 300px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #383232;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 99;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+#sidebar h1 {
+  color: #df2d00;
+  font-size: 28px;
   text-align: center;
+  padding: 20px 0;
 }
-.main, .instructions, .otherDrinks {
+#sidebar #api-list .label {
+  border-top: 1px solid #443d3d;
+  display: block;
+  color: #999;
+  font-size: 15px;
+  padding: 10px 8px 3px 8px;
+}
+#sidebar span a{
+  color: #FFF;
+  text-shadow: 1px 1px black;
+  padding: 10px 18px;
+  display: block;
+}
+#sidebar span a:hover {
+  color: red;
+}
+.content {
+  padding: 20px 20px 20px 320px;
+}
+.content-inner {
+  padding: 40px 40px 220px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+#top-navbar {
+  background-color: #383232;
+  color: #df2d00;
+  position: fixed;
+  top: 0;
+  left: 300px; /* Adjust the left position to match the width of the sidebar */
+  width: calc(100% - 300px); /* Calculate the width of the navbar to fit the remaining space */
+  z-index: 100;
+  overflow: hidden;
+}
+#top-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  justify-content: center;
 }
-.img, .accountInfo {
-  margin: 1rem;
-  width: 20%;
+#top-navbar ul div {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
 }
-img {
-  width: 24rem
-}
-p {
+#top-navbar ul li {
+  display: inline-block;
+  margin: 0 10px;
+  cursor: pointer;
   font-weight: bold;
+  color: #FFF;
+  text-shadow: 1px 1px black;
 }
-.instructions p {
-  width: 50rem;
+#top-navbar ul li a {
+  color: #FFF;
 }
-span {
-  font-weight: normal;
-}
-.recs {
-  width: 50rem;
+#top-navbar ul li a:hover {
+  color: red
 }
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
-.style {
-  font-weight: bold;
-  font-size: large;
-}
-#charOne, #charThirteen, #charFifteen {
-  color: #a78254;
-}
-#charTwo, #charTen {
-  color: #a5a320;
-}
-#charThree, #charSeven {
-  color: #71b1d7 ;
-}
-#charFour {
-  color: #000000;
-}
-#charFive {
-  color: #41cb63;
-}
-#charSix, #charTwelve {
-  color: #d16f53;
-}
-#charEight {
-  color: #9753a1;
-}
-#charNine, #charSixteen {
-  color: #e2864f;
-}
-#charEleven, #charFourteen {
-  color: #fb88d3
-}
