@@ -75,4 +75,18 @@ function fetchAccountInfo() {
       // Handle errors (e.g., invalid API key)
       console.error("Error fetching account info:", error);
     });
+    window.onload = wvwFrameHeight;
+window.onresize = wvwFrameHeight;
+
+function wvwFrameHeight() {
+	var width = document.getElementById("wvwIntelFrame").clientWidth;
+	var height = Math.floor(width / 1.38);
+	if (width > 767) {
+		document.getElementById("wvwIntelFrame").style.height = height + "px";
+		document.getElementById("wvwIntelFrame").setAttribute("scrolling", "no");
+	} else {
+		document.getElementById("wvwIntelFrame").style.height = "680px";
+		document.getElementById("wvwIntelFrame").setAttribute("scrolling", "yes");
+	}
+}
 }
