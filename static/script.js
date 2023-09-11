@@ -13,6 +13,10 @@ async function fetchServerName(serverId) {
   }
 }
 
+
+
+
+
 function fetchAccountInfo() {
   const apiKey = document.getElementById("apiKey").value;
 
@@ -34,7 +38,7 @@ function fetchAccountInfo() {
       // Fetch server name
       const serverId = data.world;
       const serverName = await fetchServerName(serverId);
-      
+
       // Display account information, including total achievement points
       const accountInfo = document.getElementById("accountInfo");
       accountInfo.innerHTML = `
@@ -48,11 +52,14 @@ function fetchAccountInfo() {
         <p>Monthly Achievement Points: ${data.monthly_ap} earned </p>
         <p>Total Achievement Points: 33206 earned</p>
         <p>Fractal Level: ${data.fractal_level}</p>
+        <p>Mastery Level: ${data.masteries_levels}</p>
+        
         <p>Are you a Commander?: ${data.commander ? 'Yes' : 'No'}</p>
         <p>Expansions Owned: ${data.access}</p>
         <h2>Guilds:</h2>
         <ul id="guildList"></ul>
-        <p>Guild Leader: ${data.guild_leader}</p>
+        
+       
       `;
 
       // Fetch and display guild names
@@ -75,18 +82,18 @@ function fetchAccountInfo() {
       // Handle errors (e.g., invalid API key)
       console.error("Error fetching account info:", error);
     });
-    window.onload = wvwFrameHeight;
-window.onresize = wvwFrameHeight;
+}
 
-function wvwFrameHeight() {
-	var width = document.getElementById("wvwIntelFrame").clientWidth;
-	var height = Math.floor(width / 1.38);
-	if (width > 767) {
-		document.getElementById("wvwIntelFrame").style.height = height + "px";
-		document.getElementById("wvwIntelFrame").setAttribute("scrolling", "no");
-	} else {
-		document.getElementById("wvwIntelFrame").style.height = "680px";
-		document.getElementById("wvwIntelFrame").setAttribute("scrolling", "yes");
-	}
-}
-}
+// window.onload = wvwFrameHeight;
+// window.onresize = wvwFrameHeight;
+// function wvwFrameHeight() {
+// 	var width = document.getElementById("wvwIntelFrame").clientWidth;
+// 	var height = Math.floor(width / 1.38);
+// 	if (width > 767) {
+// 		document.getElementById("wvwIntelFrame").style.height = height + "px";
+// 		document.getElementById("wvwIntelFrame").setAttribute("scrolling", "no");
+// 	} else {
+// 		document.getElementById("wvwIntelFrame").style.height = "680px";
+// 		document.getElementById("wvwIntelFrame").setAttribute("scrolling", "yes");
+// 	}
+// }
