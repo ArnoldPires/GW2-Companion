@@ -40,9 +40,8 @@ function fetchAccountInfo() {
       const serverName = await fetchServerName(serverId);
 
       // Display account information, including total achievement points
-      const accountInfo = document.getElementById("accountInfo");
-      accountInfo.innerHTML = `
-        <h2>Account Information:</h2>
+      const accountInfoContent = document.getElementById("accountInfoContent");
+      accountInfoContent.innerHTML = `
         <p>Account Creation date: ${formattedCreatedDate}</p>
         <p>Account Name: ${data.name}</p>
         <p>Server Name: ${serverName}</p> <!-- Use serverName variable here -->
@@ -83,6 +82,36 @@ function fetchAccountInfo() {
       console.error("Error fetching account info:", error);
     });
 }
+
+// JavaScript for smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// JavaScript for fixing the sidebar
+const sidebar = document.getElementById('sidebar');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '0';
+    } else {
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '0';
+    }
+});
 
 // window.onload = wvwFrameHeight;
 // window.onresize = wvwFrameHeight;

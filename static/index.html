@@ -9,63 +9,80 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<section id="sidebar">
-			<h1>Guild Wars 2 Companion</h1>
-			<div id="api-list">
-				<span class="label">
-					<a href="accountInfo">Account Information</a> 
-				</span>
-				<span class="label">
-					<a href="CharacterInfo">Character Information</a> 
-				</span>
-				<span class="label">
-					<a href="GuildInfo">Guild Information</a> 
-				</span>
-				<span class="label">
-					<a href="PvpInfo">PVP Information</a> 
-				</span>
-				<span class="label">
-					<a href="WvwInfo">WvW Information</a> 
-				</span>
-				<span class="label">
-					<a href="WvwMap">WvW Map</a> 
-				</span>
-				<span class="label">
-					<a href="PveMap">PvE Map</a> 
-				</span>
-			</div>
-		</section>
-		 <nav id="top-navbar">
+		<nav id="top-navbar">
         <ul>
           <div>
             <li><a href="https://gw2-selection-screen-ap.netlify.app/classespage/classes">Learn About the Classes</a></li>
             <li><a href="https://gw2-selection-screen-ap.netlify.app/">My Charaters</a></li>
+						<li><a href="https://account.arena.net/applications">Create Your API Key</a></li>
           </div>
         </ul>
     </nav>
-		<section class="content">
-			<div class="content-inner"></div>
-		</section>
-
+		<section class="container">
+			<section id="sidebar">
+				<h1>Guild Wars 2 Companion</h1>
+				<div id="api-list">
+					<span class="label">
+						<a href="#accountInfo">Account Information</a> 
+					</span>
+					<span class="label">
+						<a href="#characterInfo">Character Information</a>
+					</span>
+					<span class="label">
+						<a href="#guildInfo">Guild Information</a> 
+					</span>
+					<span class="label">
+						<a href="#pvpInfo">PVP Information</a> 
+					</span>
+					<span class="label">
+						<a href="#wvwInfo">WvW Information</a> 
+					</span>
+					<span class="label">
+						<a href="#pvEandWvWMap">WvW Map</a> 
+					</span>
+				</div>
+			</section>
+			<section class="HomePage-container">
+				<section class="api-container">
+					<h2>API Key</h2>
+					<form id="apiKeyForm">
+        		<label for="apiKey">Enter your API key:</label>
+        		<input type="text" id="apiKey" name="apiKey">
+        		<button type="button" onclick="fetchAccountInfo()">Add your key</button>
+    			</form>
+					<p>If you want your Guild Wars 2 information to display, you have to enter your API key in above.</p>
+					<p>The Guild Wars 2 API is accessed by making requests to <strong>https://api.guildwars2.com</strong> with the following URL format:<strong>https://api.guildwars2.com/version/endpoint</strong></p>
+				</section>
+				<section id="accountInfo">
+					<h2>Account Information</h2>
+					<div id="accountInfoContent"></div>
+				</section>
+				<section id="characterInfo">
+					<h2>Character Information</h2>
+					<div id="characterInfoContent"></div>
+				</section>
+				<section id="guildInfo">
+					<h2>Guild Information</h2>
+					<div id="guildInfoContent"></div>
+				</section>
+				<section id="pvpInfo">
+					<h2>PVP Information</h2>
+					<div id="pvpInfoContent"></div>
+				</section>
+				<section id="wvwInfo">
+					<h2>WvW Information</h2>
+					<div id="wvwInfoContent"></div>
+				</section>
+				<section id="pvEandWvWMap">
+					<h2>PVE & WvW Maps</h2>
+					<iframe id="pveIntelFrame" src="https://maps.gw2.io/tyria" frameborder="0" style="width: 100%; min-width: 320px; height: 65rem;"></iframe>
+				</section>
+			</section>
 		</body>
+		<script type="text/javascript" src="script.js"></script>
 	</html>
 		<!-- 
-			<header>
-			<div>
-				<a href="#">Learn about the classes</a>
-			</div>
-			<div>
-				<a href="#">See my characters</a>
-				<a href="#">How to get your GW2 api key</a>
-			</div>
-		</header>
-		<h1>Guild Wars 2 Companion</h1>
 		<section class="api-container">
-			<form id="apiKeyForm">
-        <label for="apiKey">Enter your API key:</label>
-        <input type="text" id="apiKey" name="apiKey">
-        <button type="button" onclick="fetchAccountInfo()">Add your key</button>
-    </form>
 			<div class="row">
 				<div class="offset-md-1 col-md-10">
 					<form id="add" method="POST" action="/add" class="form-horizontal pt-4 pb-4 form-inline">
