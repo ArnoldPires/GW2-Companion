@@ -9,6 +9,7 @@ const Navbar = () => {
           <div>
             <li><Link to="https://gw2-selection-screen-ap.netlify.app/classespage/classes">Learn About the Classes</Link></li>
             <li><Link to="https://gw2-selection-screen-ap.netlify.app/">My Charaters</Link></li>
+            <li><Link to="https://account.arena.net/applications">Create Your Api Key</Link></li>
           </div>
         </ul>
     </nav>

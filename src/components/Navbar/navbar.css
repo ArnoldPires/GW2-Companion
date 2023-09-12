@@ -3,8 +3,7 @@
   color: #df2d00;
   position: fixed;
   top: 0;
-  left: 300px; /* Adjust the left position to match the width of the sidebar */
-  width: calc(100% - 300px); /* Calculate the width of the navbar to fit the remaining space */
+  width: 100%;
   z-index: 100;
   overflow: hidden;
 }
