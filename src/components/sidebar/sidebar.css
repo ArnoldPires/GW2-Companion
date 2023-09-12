@@ -20,9 +20,8 @@
   font-size: 28px;
   text-align: center;
   padding: 20px 0;
-  text-decoration: none !important;
 }
-#sideBar a {
+#sidebar a:nth-child(1) {
   text-decoration: none;
 }
 #sidebar #api-list .label {
@@ -37,6 +36,7 @@
   text-shadow: 1px 1px black;
   padding: 10px 18px;
   display: block;
+  text-decoration: underline;
 }
 #sidebar span a:hover {
   color: red;
