@@ -13,10 +13,6 @@ async function fetchServerName(serverId) {
   }
 }
 
-
-
-
-
 function fetchAccountInfo() {
   const apiKey = document.getElementById("apiKey").value;
 
@@ -57,8 +53,6 @@ function fetchAccountInfo() {
         <p>Expansions Owned: ${data.access}</p>
         <h2>Guilds:</h2>
         <ul id="guildList"></ul>
-        
-       
       `;
 
       // Fetch and display guild names
