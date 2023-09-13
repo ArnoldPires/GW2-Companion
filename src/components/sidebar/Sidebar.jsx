@@ -10,6 +10,7 @@ let Sidebar = () => {
   };
   return (
     <section id="sidebar">
+      <img src='https://wiki.guildwars2.com/images/d/df/GW2Logo_new.png'></img>
       <Link onClick={() => handleClickScroll("api-container")}><h1>Guild Wars 2 Companion</h1></Link>
       <div id="api-list">
         <span className="label">
