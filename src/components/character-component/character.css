@@ -1,0 +1,26 @@
+.character-container {
+  display: flex;
+  align-items: center;
+}
+.character-names {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+.character-details {
+  width: 50%;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.character-names span:hover {
+  color: #df2d00;
+}
+.warrior {
+  background-color: #FF5733; /* Replace with your desired color */
+}
+.elementalist {
+  background-color: #337DFF; /* Replace with your desired color */
+}
