@@ -16,7 +16,7 @@ function Character(props) {
   const [characterList, setCharacterList] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [titleName, setTitleName] = useState('');
-  const [professionIcons, setProfessionIcons] = useState({});
+  const [setProfessionIcons] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
