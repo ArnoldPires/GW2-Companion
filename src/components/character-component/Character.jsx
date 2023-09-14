@@ -16,7 +16,7 @@ function Character(props) {
   const [characterList, setCharacterList] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [titleName, setTitleName] = useState('');
-  const [setProfessionIcons] = useState({});
+  const [professionIcons, setProfessionIcons] = useState({}); // Corrected state variable name
 
   useEffect(() => {
     const fetchData = async () => {
