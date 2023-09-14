@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./pvp.css"
 import "../../App.css"
 
 function Pvp(props) {
@@ -27,22 +28,37 @@ function Pvp(props) {
       <h2>PVP Information</h2>
       <div id="pvpInfoContent">
         {pvpData && (
-          <div>
-            <p>
-              <strong>PvP Rank:</strong> {pvpData.pvp_rank}
-            </p>
-            <p>
-              <strong>Wins:</strong> {pvpData.aggregate.wins}
-            </p>
-            <p>
-              <strong>Losses:</strong> {pvpData.aggregate.losses}
-            </p>
-            <p>
-              <strong>Desertions:</strong> {pvpData.aggregate.desertions}
-            </p>
-            <p>
-              <strong>Forfeits:</strong> {pvpData.aggregate.forfeits}
-            </p>
+          <div className='pvp-container'>
+            <div>
+              <p>
+                <strong>Icon</strong> {pvpData.icon}
+              </p>
+              <p>
+                <strong>PvP Rank:</strong> {pvpData.pvp_rank}
+              </p>
+              <p>
+                <strong>Wins:</strong> {pvpData.aggregate.wins}
+              </p>
+              <p>
+                <strong>Losses:</strong> {pvpData.aggregate.losses}
+              </p>
+              <p>
+                <strong>Desertions:</strong> {pvpData.aggregate.desertions}
+              </p>
+              <p>
+                <strong>Forfeits:</strong> {pvpData.aggregate.forfeits}
+              </p>
+            </div>
+            <div>
+                <strong>Professions Used in PvP:</strong>
+                <ul>
+                  {Object.keys(pvpData.professions).map((profession) => (
+                    <li key={profession}>
+                      {profession}: Wins - {pvpData.professions[profession].wins}, Losses - {pvpData.professions[profession].losses}
+                    </li>
+                  ))}
+                </ul>
+            </div>
           </div>
         )}
       </div>
