@@ -18,7 +18,7 @@
 	clear: both;
 }
 body {
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family:system-ui, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #eaeaea;
@@ -35,4 +35,12 @@ body {
   width: 80%;
   margin: 0 auto;
   margin-top: 3rem;
+  text-align: center;
+}
+li {
+  list-style-type: none;
+  padding: 3px;
+}
+a {
+  cursor: pointer;
 }

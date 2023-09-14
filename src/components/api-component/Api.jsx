@@ -34,6 +34,8 @@ function Api({ apiKey, onApiKeyChange }) {
           value={apiKeyInput}
           onChange={handleApiKeyChange}
         />
+        <br />
+        <br />
         <button type="button" onClick={fetchAccountInfo}>Add Your Key</button>
       </form>
       <p>If you want your Guild Wars 2 information to display, you have to enter your API key above.</p>

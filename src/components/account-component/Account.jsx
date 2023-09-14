@@ -51,6 +51,7 @@ function Account(props) {
           <p><strong>Total Achievement Points:</strong> 33206</p>
           <p><strong>Fractal Level:</strong> {accountData.fractal_level}</p>
           <p><strong>Total Mastery Points:</strong> 455</p>
+          <p><strong>WvW Rank:</strong> {accountData.wvw_rank}</p>
           <p><strong>Are you a Commander?:</strong> {accountData.commander ? 'Yes' : 'No'}</p>
           <p><strong>Expansions Owned:</strong> {accountData.access.join(', ')}</p>
         </div>
