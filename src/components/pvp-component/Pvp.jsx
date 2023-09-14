@@ -23,7 +23,7 @@ function Pvp(props) {
           const data = await response.json();
           setPvpData(data);
         } catch (error) {
-          console.error('Error fetching pvp info:', error);
+          console.error('Error fetching PvP info:', error);
         }
       }
     };
@@ -60,12 +60,11 @@ function Pvp(props) {
 
   return (
     <section id="pvpInfo">
-      <h2>PVP Information</h2>
+      <h2>PvP Information</h2>
       <div id="pvpInfoContent">
         {pvpData && (
           <div className="pvp-container">
             <div>
-              {/* Use the imported image as the source */}
               <img src={SharkRank} alt="PvP Rank Icon"></img>
               <p><strong>PvP Rank:</strong> {pvpData.pvp_rank}</p>
               <p><strong>Wins:</strong> {pvpData.aggregate.wins}</p>
@@ -78,7 +77,7 @@ function Pvp(props) {
               <ul>
                 {Object.keys(pvpData.professions).map((profession) => (
                   <li key={profession}>
-                    {profession}: Wins - {pvpData.professions[profession].wins}, Losses - {pvpData.professions[profession].losses}
+                   <strong>{profession.charAt(0).toUpperCase() + profession.slice(1)}:</strong> Wins - {pvpData.professions[profession].wins}, Losses - {pvpData.professions[profession].losses}
                   </li>
                 ))}
               </ul>

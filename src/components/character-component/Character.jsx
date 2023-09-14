@@ -2,24 +2,69 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import './character.css';
 import Warrior from './images/Warrior.png';
+import WarriorArt from './images/WarriorArt.png';
 import Elementalist from './images/Elementalist.png';
+import ElementalistArt from './images/ElementalistArt.png';
 import Engineer from './images/Engineer.png';
+import EngineerArt from './images/EngineerArt.png';
 import Guardian from './images/Guardian.png';
+import GuardianArt from './images/GuardianArt.png';
 import Mesmer from './images/Mesmer.png';
+import MesmerArt from './images/MesmerArt.png';
 import Necromancer from './images/Necromancer.png';
+import NecromancerArt from './images/NecromancerArt.png';
 import Ranger from './images/Ranger.png';
+import RangerArt from './images/RangerArt.png';
 import Revenant from './images/Revenant.png';
+import RevenantArt from './images/RevenantArt.jpg';
 import Thief from './images/Thief.png';
+import ThiefArt from './images/ThiefArt.png';
+
+// Create a mapping of professions to their art images
+const professionArtMap = {
+  warrior: WarriorArt,
+  elementalist: ElementalistArt,
+  // Add other professions and their corresponding art images here...
+};
+
+// Function to get the character class for styling
+function getCharacterClass(profession) {
+  // Map each profession to a CSS class name for background color
+  switch (profession?.toLowerCase()) {
+    case 'warrior':
+      return 'warrior-class';
+    case 'elementalist':
+      return 'elementalist-class';
+    case 'necromancer':
+      return 'necromancer-class';
+    case 'thief':
+      return 'thief-class';
+    case 'revenant':
+      return 'revenant-class';
+    case 'engineer':
+      return 'engineer-class';
+    case 'mesmer':
+      return 'mesmer-class';
+    case 'guardian':
+      return 'guardian-class';
+    case 'ranger':
+      return 'ranger-class';
+    default:
+      return '';
+  }
+}
 
 function Character(props) {
   const { apiKey } = props;
   const [characterList, setCharacterList] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [titleName, setTitleName] = useState('');
-  const [professionIcons, setProfessionIcons] = useState({}); // Corrected state variable name
+  const [professionIcons, setProfessionIcons] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         // Fetch the list of characters
         const characterResponse = await fetch(
@@ -27,6 +72,7 @@ function Character(props) {
         );
         const characterData = await characterResponse.json();
         setCharacterList(characterData);
+        setIsLoading(false);
 
         // Fetch profession icons
         const professionResponse = await fetch('https://api.guildwars2.com/v2/professions');
@@ -38,6 +84,7 @@ function Character(props) {
         setProfessionIcons(professionIconMap);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
 
@@ -47,12 +94,13 @@ function Character(props) {
   }, [apiKey]);
 
   // Function to handle character selection
-  const handleCharacterClick = async (characterName, titleId) => {
+  const handleCharacterSelect = async (event) => {
+    const characterName = event.target.value;
     const selectedCharacterData = characterList.find((character) => character.name === characterName);
     setSelectedCharacter(selectedCharacterData);
     try {
       // Fetch the title name
-      const titleResponse = await fetch(`https://api.guildwars2.com/v2/titles/${titleId}`);
+      const titleResponse = await fetch(`https://api.guildwars2.com/v2/titles/${selectedCharacterData.title}`);
       const titleData = await titleResponse.json();
       setTitleName(titleData.name);
     } catch (error) {
@@ -74,46 +122,8 @@ function Character(props) {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+    return `${month}-${day}-${year}`;
   };
-
-  return (
-    <section id="characterInfo">
-      <h2>Character Information</h2>
-      <div className="character-container">
-        <div className="character-names">
-          <ul>
-            {characterList.map((character) => (
-              <li key={character.name}>
-                <span onClick={() => handleCharacterClick(character.name, character.title)}>
-                  {character.name}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={`character-details ${selectedCharacter && selectedCharacter.profession.toLowerCase()}`}>
-          {selectedCharacter && (
-            <div className="details">
-              <h3>Details:</h3>
-              <img
-                src={getImageForProfession(selectedCharacter.profession)}
-                alt={selectedCharacter.profession}
-                style={{ marginLeft: '10px' }}
-              />
-              <p><strong>Profession:</strong> {selectedCharacter.profession}</p>
-              <p><strong>Gender:</strong> {selectedCharacter.gender}</p>
-              <p><strong>Race:</strong> {selectedCharacter.race}</p>
-              <p><strong>Age:</strong> {formatAge(selectedCharacter.age)}</p>
-              <p><strong>Created:</strong> {formatCreatedDate(selectedCharacter.created)}</p>
-              <p><strong>Deaths:</strong> {selectedCharacter.deaths}</p>
-              <p><strong>Title:</strong> {titleName || 'No Title'}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
-  );
 
   // Function to get the image for a profession
   function getImageForProfession(profession) {
@@ -141,6 +151,72 @@ function Character(props) {
         return ''; // Return a default image or handle missing images
     }
   }
+
+  return (
+    <section id="characterInfo">
+      <h2>Character Information</h2>
+      <div className="character-container">
+        <div className="character-dropdown">
+          <label htmlFor="characterSelect">Select a Character:</label>
+          <select
+            id="characterSelect"
+            onChange={handleCharacterSelect}
+            value={selectedCharacter ? selectedCharacter.name : ''}
+          >
+            <option value="" disabled>
+              Select a Character
+            </option>
+            {characterList.map((character) => (
+              <option key={character.name} value={character.name}>
+                {character.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <img
+          src={selectedCharacter ? professionArtMap[selectedCharacter.profession.toLowerCase()] : ''}
+          alt={selectedCharacter?.profession || ''}
+        />
+        <div className={`character-details ${getCharacterClass(selectedCharacter?.profession)}`}>
+          {isLoading ? (
+            <p>Loading character data...</p>
+          ) : (
+            selectedCharacter && (
+              <div className="details">
+                <h3>Details:</h3>
+                <img
+                  src={getImageForProfession(selectedCharacter.profession)}
+                  alt={selectedCharacter.profession}
+                  style={{ marginLeft: '10px' }}
+                />
+                <p>
+                  <strong>Profession:</strong> {selectedCharacter.profession}
+                </p>
+                <p>
+                  <strong>Gender:</strong> {selectedCharacter.gender}
+                </p>
+                <p>
+                  <strong>Race:</strong> {selectedCharacter.race}
+                </p>
+                <p>
+                  <strong>Age:</strong> {formatAge(selectedCharacter.age)}
+                </p>
+                <p>
+                  <strong>Created:</strong> {formatCreatedDate(selectedCharacter.created)}
+                </p>
+                <p>
+                  <strong>Deaths:</strong> {selectedCharacter.deaths}
+                </p>
+                <p>
+                  <strong>Title:</strong> {titleName || 'No Title'}
+                </p>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default Character;

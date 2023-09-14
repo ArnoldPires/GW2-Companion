@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import "../../App.css"
+import "../../App.css";
+import "./guild.css";
 
 function Guild(props) {
   const { apiKey } = props;
@@ -36,7 +37,7 @@ function Guild(props) {
       <h2>Guild Information</h2>
       {guildData && (
         <div id="guildInfoContent">
-          <p>Guilds:</p>
+          <p><strong>Guilds:</strong></p>
           <ul>
             {guildDetails.map((guild, index) => (
               <li key={index}>

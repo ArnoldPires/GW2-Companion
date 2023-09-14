@@ -1,26 +1,58 @@
 .character-container {
   display: flex;
-  align-items: center;
+  justify-content: space-evenly;
+}
+.image-wrapper img {
+  width: 25rem;
 }
 .character-names {
   display: flex;
   justify-content: center;
   width: 50%;
 }
+.character-names li {
+  cursor: pointer;
+}
 .character-details {
-  width: 50%;
+  width: 40%;
+  border-radius: 5rem;
 }
 .details {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
 }
 .character-names span:hover {
   color: #df2d00;
 }
-.warrior {
-  background-color: #FF5733; /* Replace with your desired color */
+.warrior-class {
+  background-color: #d54716;
 }
-.elementalist {
-  background-color: #337DFF; /* Replace with your desired color */
+.elementalist-class {
+  background-color: #337DFF;
+}
+.guardian-class {
+  background-color: #1fa5f7;
+}
+.revenant-class {
+  background-color: #b50000;
+}
+.engineer-class {
+  background-color: #ce7f4b;
+}
+.ranger-class {
+  background-color: #94c34a;
+}
+.thief-class {
+  background-color: #974550;
+}
+.elementalist-class {
+  background-color: #f77a84;
+}
+.mesmer-class {
+  background-color: #d532ff;
+}
+.necromancer-class {
+  background-color: #2dd039;
 }
