@@ -4,7 +4,6 @@ import Account from "../../components/account-component/Account";
 import Character from "../../components/character-component/Character";
 import Guild from "../../components/guild-component/Guild";
 import Pvp from "../../components/pvp-component/Pvp";
-import Wvw from "../../components/wvw-component/Wvw";
 import Map from "../../components/map-component/Map";
 import "./homePage.css";
 
@@ -23,7 +22,6 @@ const HomePage = () => {
       <Character apiKey={apiKey} />
       <Guild apiKey={apiKey} />
       <Pvp apiKey={apiKey} />
-      <Wvw apiKey={apiKey} />
       <Map />
     </section>
   );
