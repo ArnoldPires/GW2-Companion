@@ -41,18 +41,18 @@ function Account(props) {
       <h2>Account Information</h2>
       {accountData && (
         <div id="accountInfoContent">
-          <p>Account Creation Date: {new Date(accountData.created).toLocaleDateString()}</p>
-          <p>Account Name: {accountData.name}</p>
-          <p>World Server: {worldName}</p>
-          <p>Age Of Account: {ageInYears} years</p>
-          <p>Total Time Played: 10795 hours 25 minutes</p>
-          <p>Daily Achievement Points: {accountData.daily_ap}</p>
-          <p>Monthly Achievement Points: {accountData.monthly_ap}</p>
-          <p>Total Achievement Points: 33206</p>
-          <p>Fractal Level: {accountData.fractal_level}</p>
-          <p>Total Mastery Points: 455</p>
-          <p>Are you a Commander?: {accountData.commander ? 'Yes' : 'No'}</p>
-          <p>Expansions Owned: {accountData.access.join(', ')}</p>
+          <p><strong>Account Creation Date:</strong> {new Date(accountData.created).toLocaleDateString()}</p>
+          <p><strong>Account Name:</strong> {accountData.name}</p>
+          <p><strong>World Server:</strong> {worldName}</p>
+          <p><strong>Age Of Account:</strong> {ageInYears} years</p>
+          <p><strong>Total Time Played:</strong> 10795 hours 25 minutes</p>
+          <p><strong>Daily Achievement Points:</strong> {accountData.daily_ap}</p>
+          <p><strong>Monthly Achievement Points:</strong> {accountData.monthly_ap}</p>
+          <p><strong>Total Achievement Points:</strong> 33206</p>
+          <p><strong>Fractal Level:</strong> {accountData.fractal_level}</p>
+          <p><strong>Total Mastery Points:</strong> 455</p>
+          <p><strong>Are you a Commander?:</strong> {accountData.commander ? 'Yes' : 'No'}</p>
+          <p><strong>Expansions Owned:</strong> {accountData.access.join(', ')}</p>
         </div>
       )}
     </section>
