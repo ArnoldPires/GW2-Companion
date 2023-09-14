@@ -40,7 +40,8 @@ function Guild(props) {
           <ul>
             {guildDetails.map((guild, index) => (
               <li key={index}>
-                {guild.name} [{guild.tag}]<br />
+                {guild.name} [{guild.tag}]
+                <br />
                 <img src={`https://guilds.gw2w2w.com/guilds/${guild.name.split(" ").join("-")}/128.svg`} alt={`Guild Emblem for ${guild.name}`} />
               </li>
             ))}

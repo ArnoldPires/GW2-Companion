@@ -101,27 +101,13 @@ function Character(props) {
                 alt={selectedCharacter.profession}
                 style={{ marginLeft: '10px' }}
               />
-              <p>
-                <strong>Profession:</strong> {selectedCharacter.profession}
-              </p>
-              <p>
-                <strong>Gender:</strong> {selectedCharacter.gender}
-              </p>
-              <p>
-                <strong>Race:</strong> {selectedCharacter.race}
-              </p>
-              <p>
-                <strong>Age:</strong> {formatAge(selectedCharacter.age)}
-              </p>
-              <p>
-                <strong>Created:</strong> {formatCreatedDate(selectedCharacter.created)}
-              </p>
-              <p>
-                <strong>Deaths:</strong> {selectedCharacter.deaths}
-              </p>
-              <p>
-                <strong>Title:</strong> {titleName || 'No Title'}
-              </p>
+              <p><strong>Profession:</strong> {selectedCharacter.profession}</p>
+              <p><strong>Gender:</strong> {selectedCharacter.gender}</p>
+              <p><strong>Race:</strong> {selectedCharacter.race}</p>
+              <p><strong>Age:</strong> {formatAge(selectedCharacter.age)}</p>
+              <p><strong>Created:</strong> {formatCreatedDate(selectedCharacter.created)}</p>
+              <p><strong>Deaths:</strong> {selectedCharacter.deaths}</p>
+              <p><strong>Title:</strong> {titleName || 'No Title'}</p>
             </div>
           )}
         </div>
