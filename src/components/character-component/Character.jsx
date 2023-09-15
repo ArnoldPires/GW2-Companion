@@ -24,7 +24,13 @@ import ThiefArt from './images/ThiefArt.png';
 const professionArtMap = {
   warrior: WarriorArt,
   elementalist: ElementalistArt,
-  // Add other professions and their corresponding art images here...
+  engineer: EngineerArt,
+  guardian: GuardianArt,
+  mesmer: MesmerArt,
+  necromancer: NecromancerArt,
+  ranger: RangerArt,
+  revenant: RevenantArt,
+  thief: ThiefArt,
 };
 
 // Function to get the character class for styling
@@ -173,10 +179,12 @@ function Character(props) {
             ))}
           </select>
         </div>
-        <img
+        <div className='image-wrapper'>
+          <img
           src={selectedCharacter ? professionArtMap[selectedCharacter.profession.toLowerCase()] : ''}
           alt={selectedCharacter?.profession || ''}
         />
+        </div>
         <div className={`character-details ${getCharacterClass(selectedCharacter?.profession)}`}>
           {isLoading ? (
             <p>Loading character data...</p>
