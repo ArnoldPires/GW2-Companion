@@ -4,23 +4,28 @@ import "./guild.css";
 
 function Guild(props) {
   const { apiKey } = props;
+  // State for guild data
   const [guildData, setGuildData] = useState(null);
+  // State for guild details
   const [guildDetails, setGuildDetails] = useState([]);
 
   useEffect(() => {
     const fetchGuildData = async () => {
       if (apiKey) {
         try {
+          // Account data from the Guild Wars 2 API
           const response = await fetch(`https://api.guildwars2.com/v2/account?access_token=${apiKey}`);
           const data = await response.json();
           setGuildData(data);
 
-          // Fetch and set guild details
+          // Fetch and set guild details for each guild associated with the account
           const guildDetails = await Promise.all(data.guilds.map(async (guildId) => {
+            // Fetch guild details for each guild using its guildId
             const guildResponse = await fetch(`https://api.guildwars2.com/v2/guild/${guildId}`);
             const guildData = await guildResponse.json();
             return guildData;
           }));
+          // Update the state with guild details
           setGuildDetails(guildDetails);
         } catch (error) {
           console.error('Error fetching account info:', error);
@@ -29,7 +34,6 @@ function Guild(props) {
     };
 
     fetchGuildData();
-
   }, [apiKey]);
 
   return (

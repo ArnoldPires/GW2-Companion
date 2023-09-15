@@ -1,41 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import './character.css';
-import Warrior from './images/Warrior.png';
-import WarriorArt from './images/WarriorArt.png';
-import Elementalist from './images/Elementalist.png';
-import ElementalistArt from './images/ElementalistArt.png';
-import Engineer from './images/Engineer.png';
-import EngineerArt from './images/EngineerArt.png';
-import Guardian from './images/Guardian.png';
-import GuardianArt from './images/GuardianArt.png';
-import Mesmer from './images/Mesmer.png';
-import MesmerArt from './images/MesmerArt.png';
-import Necromancer from './images/Necromancer.png';
-import NecromancerArt from './images/NecromancerArt.png';
-import Ranger from './images/Ranger.png';
-import RangerArt from './images/RangerArt.png';
-import Revenant from './images/Revenant.png';
-import RevenantArt from './images/RevenantArt.jpg';
-import Thief from './images/Thief.png';
-import ThiefArt from './images/ThiefArt.png';
 
-// Create a mapping of professions to their art images
-const professionArtMap = {
-  warrior: WarriorArt,
-  elementalist: ElementalistArt,
-  engineer: EngineerArt,
-  guardian: GuardianArt,
-  mesmer: MesmerArt,
-  necromancer: NecromancerArt,
-  ranger: RangerArt,
-  revenant: RevenantArt,
-  thief: ThiefArt,
+// All Core profession Icons
+import warriorImage from './images/Warrior.png';
+import elementalistImage from './images/Elementalist.png';
+import engineerImage from './images/Engineer.png';
+import guardianImage from './images/Guardian.png';
+import mesmerImage from './images/Mesmer.png';
+import necromancerImage from './images/Necromancer.png';
+import rangerImage from './images/Ranger.png';
+import revenantImage from './images/Revenant.png';
+import thiefImage from './images/Thief.png';
+
+// Profession art 
+import warriorArtImage from './images/WarriorArt.png';
+import elementalistArtImage from './images/ElementalistArt.png';
+import engineerArtImage from './images/EngineerArt.png';
+import guardianArtImage from './images/GuardianArt.png';
+import mesmerArtImage from './images/MesmerArt.png';
+import necromancerArtImage from './images/NecromancerArt.png';
+import rangerArtImage from './images/RangerArt.png';
+import revenantArtImage from './images/RevenantArt.jpg';
+import thiefArtImage from './images/ThiefArt.png';
+
+// A mapping so when the user selects one of their characters in the drop down menu
+// the profession icon will appear
+const professionImageMap = {
+  warrior: warriorImage,
+  elementalist: elementalistImage,
+  engineer: engineerImage,
+  guardian: guardianImage,
+  mesmer: mesmerImage,
+  necromancer: necromancerImage,
+  ranger: rangerImage,
+  revenant: revenantImage,
+  thief: thiefImage,
 };
 
-// Function to get the character class for styling
+// A mapping so when the user selects one of their characters in the drop down menu
+// art of that profession will appear
+const professionArtMap = {
+  warrior: warriorArtImage,
+  elementalist: elementalistArtImage,
+  engineer: engineerArtImage,
+  guardian: guardianArtImage,
+  mesmer: mesmerArtImage,
+  necromancer: necromancerArtImage,
+  ranger: rangerArtImage,
+  revenant: revenantArtImage,
+  thief: thiefArtImage,
+};
+
+// Function to get the character class for background color change or profession details
 function getCharacterClass(profession) {
-  // Map each profession to a CSS class name for background color
   switch (profession?.toLowerCase()) {
     case 'warrior':
       return 'warrior-class';
@@ -65,14 +83,13 @@ function Character(props) {
   const [characterList, setCharacterList] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [titleName, setTitleName] = useState('');
-  const [professionIcons, setProfessionIcons] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Fetch the list of characters
+        // Fetch the list of the users characters based of off their apikey
         const characterResponse = await fetch(
           `https://api.guildwars2.com/v2/characters?ids=all&access_token=${apiKey}`
         );
@@ -80,14 +97,13 @@ function Character(props) {
         setCharacterList(characterData);
         setIsLoading(false);
 
-        // Fetch profession icons
+        // Grabbing the icon ids for each profession
         const professionResponse = await fetch('https://api.guildwars2.com/v2/professions');
         const professionData = await professionResponse.json();
         const professionIconMap = {};
         professionData.forEach((profession) => {
           professionIconMap[profession.id] = profession.icon;
         });
-        setProfessionIcons(professionIconMap);
       } catch (error) {
         console.error('Error fetching data:', error);
         setIsLoading(false);
@@ -131,33 +147,6 @@ function Character(props) {
     return `${month}-${day}-${year}`;
   };
 
-  // Function to get the image for a profession
-  function getImageForProfession(profession) {
-    // Map each profession to its corresponding image
-    switch (profession.toLowerCase()) {
-      case 'warrior':
-        return Warrior;
-      case 'elementalist':
-        return Elementalist;
-      case 'necromancer':
-        return Necromancer;
-      case 'thief':
-        return Thief;
-      case 'revenant':
-        return Revenant;
-      case 'engineer':
-        return Engineer;
-      case 'mesmer':
-        return Mesmer;
-      case 'guardian':
-        return Guardian;
-      case 'ranger':
-        return Ranger;
-      default:
-        return ''; // Return a default image or handle missing images
-    }
-  }
-
   return (
     <section id="characterInfo">
       <h2>Character Information</h2>
@@ -167,23 +156,15 @@ function Character(props) {
           <select
             id="characterSelect"
             onChange={handleCharacterSelect}
-            value={selectedCharacter ? selectedCharacter.name : ''}
-          >
-            <option value="" disabled>
-              Select a Character
-            </option>
+            value={selectedCharacter ? selectedCharacter.name : ''}>
+            <option value="" disabled>Select a Character</option>
             {characterList.map((character) => (
-              <option key={character.name} value={character.name}>
-                {character.name}
-              </option>
+              <option key={character.name} value={character.name}>{character.name}</option>
             ))}
           </select>
         </div>
         <div className='image-wrapper'>
-          <img
-          src={selectedCharacter ? professionArtMap[selectedCharacter.profession.toLowerCase()] : ''}
-          alt={selectedCharacter?.profession || ''}
-        />
+          <img src={selectedCharacter ? professionArtMap[selectedCharacter.profession.toLowerCase()] : ''} alt={selectedCharacter?.profession || ''}/>
         </div>
         <div className={`character-details ${getCharacterClass(selectedCharacter?.profession)}`}>
           {isLoading ? (
@@ -192,32 +173,14 @@ function Character(props) {
             selectedCharacter && (
               <div className="details">
                 <h3>Details:</h3>
-                <img
-                  src={getImageForProfession(selectedCharacter.profession)}
-                  alt={selectedCharacter.profession}
-                  style={{ marginLeft: '10px' }}
-                />
-                <p>
-                  <strong>Profession:</strong> {selectedCharacter.profession}
-                </p>
-                <p>
-                  <strong>Gender:</strong> {selectedCharacter.gender}
-                </p>
-                <p>
-                  <strong>Race:</strong> {selectedCharacter.race}
-                </p>
-                <p>
-                  <strong>Age:</strong> {formatAge(selectedCharacter.age)}
-                </p>
-                <p>
-                  <strong>Created:</strong> {formatCreatedDate(selectedCharacter.created)}
-                </p>
-                <p>
-                  <strong>Deaths:</strong> {selectedCharacter.deaths}
-                </p>
-                <p>
-                  <strong>Title:</strong> {titleName || 'No Title'}
-                </p>
+                <img src={professionImageMap[selectedCharacter.profession.toLowerCase()]} alt={selectedCharacter.profession}/>
+                <p><strong>Profession:</strong> {selectedCharacter.profession}</p>
+                <p><strong>Gender:</strong> {selectedCharacter.gender}</p>
+                <p><strong>Race:</strong> {selectedCharacter.race}</p>
+                <p><strong>Age:</strong> {formatAge(selectedCharacter.age)}</p>
+                <p><strong>Created:</strong> {formatCreatedDate(selectedCharacter.created)}</p>
+                <p><strong>Deaths:</strong> {selectedCharacter.deaths}</p>
+                <p><strong>Title:</strong> {titleName || 'No Title'}</p>
               </div>
             )
           )}

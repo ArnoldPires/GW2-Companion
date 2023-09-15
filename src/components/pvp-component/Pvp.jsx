@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './pvp.css';
 import '../../App.css';
+// PvP rank icons
 import BearRank from './images/Bear_rank.png';
 import DeerRank from './images/Deer_rank.png';
 import DolyakRank from './images/Dolyak_rank.png';
@@ -11,16 +12,20 @@ import SharkRank from './images/Shark_rank.png';
 import WolfRank from './images/Wolf_rank.png';
 
 function Pvp(props) {
+  // Destructure the apiKey from props
   const { apiKey } = props;
+  // Define state for PvP data and initialize it to null
   const [pvpData, setPvpData] = useState(null);
-
+  // Use the useEffect hook to fetch data when the component mounts or when apiKey changes
   useEffect(() => {
+    // Define an asynchronous function for fetching PvP data
     const fetchPvpData = async () => {
-      if (apiKey) {
+      if (apiKey) { // Check if an API key is available
         try {
-          // Fetch pvp data
           const response = await fetch(`https://api.guildwars2.com/v2/pvp/stats?access_token=${apiKey}`);
+          // response data as JSON
           const data = await response.json();
+          // Update the state with the fetched PvP data
           setPvpData(data);
         } catch (error) {
           console.error('Error fetching PvP info:', error);
@@ -28,12 +33,14 @@ function Pvp(props) {
       }
     };
 
-    fetchPvpData();
+    fetchPvpData(); 
+    // Call the fetchPvpData function when the component mounts
   }, [apiKey]);
 
   // Function to get the PvP rank icon URL based on pvp_rank value
+  // This doesn't work, will need to fix this later
   const getPvpRankIcon = () => {
-    const pvpRank = pvpData && pvpData.pvp_rank;
+  const pvpRank = pvpData && pvpData.pvp_rank; // Get the PvP rank from the PvP data
 
     // Map pvpRank to the corresponding icon
     switch (pvpRank) {
@@ -54,7 +61,7 @@ function Pvp(props) {
       case 8:
         return WolfRank;
       default:
-        return ''; // Return a default icon or handle missing icons
+        return ''; // Missing icon
     }
   };
 
@@ -62,7 +69,7 @@ function Pvp(props) {
     <section id="pvpInfo">
       <h2>PvP Information</h2>
       <div id="pvpInfoContent">
-        {pvpData && (
+        {pvpData && ( // Check if PvP data is available
           <div className="pvp-container">
             <div>
               <img src={SharkRank} alt="PvP Rank Icon"></img>

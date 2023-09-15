@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
-import "./api.css"
+import './api.css';
 
-function Api({ apiKey, onApiKeyChange }) {
+function Api({ onApiKeyChange }) {
+  // Define states for API key input and error messages
   const [apiKeyInput, setApiKeyInput] = useState('');
+  const [error, setError] = useState('');
+
+  // Function to handle changes in the API key input field
   const handleApiKeyChange = (event) => {
     setApiKeyInput(event.target.value);
+    setError(''); // Clear any previous error when input changes
   };
 
+  // Function to fetch account information from the API
   const fetchAccountInfo = async () => {
-    // Perform API request here using apiKeyInput
+    // Check if the API key meets the correct length
+    if (apiKeyInput.length !== 72) {
+      setError('API key length must be 72 characters.'); // Display an error message
+      return;
+    }
+
+    // API request for the acccount information
     try {
       const response = await fetch(`https://api.guildwars2.com/v2/account?access_token=${apiKeyInput}`);
-      const data = await response.json();
+      // Display error
+      if (!response.ok) {
+        setError('Incorrect API key.');
+        return;
+      }
       // Update state or pass data to other components as needed
-      console.log('Account Data:', data); // For demonstration purposes, log the account data
+      const data = await response.json();
+      console.log('Account Data:', data);
 
-      // Update apiKey state in the parent component (HomePage)
+      // Update apiKey state (HomePage)
       onApiKeyChange(apiKeyInput);
     } catch (error) {
       console.error('Error fetching account info:', error);
@@ -36,6 +53,8 @@ function Api({ apiKey, onApiKeyChange }) {
         />
         <br />
         <br />
+        {/* Display error message if error exists */}
+        {error && <p className="error">{error}</p>}
         <button type="button" onClick={fetchAccountInfo}>Add Your Key</button>
       </form>
       <p>If you want your Guild Wars 2 information to display, you have to enter your API key above.</p>

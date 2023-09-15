@@ -8,7 +8,7 @@ import Map from "../../components/map-component/Map";
 import "./homePage.css";
 
 const HomePage = () => {
-  // Initialize apiKey state in HomePage
+  // Start apiKey state in HomePage
   const [apiKey, setApiKey] = useState('');
   // Function to update apiKey state
   const handleApiKeyChange = (newApiKey) => {
