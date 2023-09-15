@@ -3,7 +3,8 @@
   justify-content: space-evenly;
 }
 .image-wrapper img {
-  width: 25rem;
+  width: 30rem;
+  height: 35rem;
 }
 .character-names {
   display: flex;
