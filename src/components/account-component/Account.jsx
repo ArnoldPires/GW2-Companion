@@ -4,8 +4,8 @@ import "../../App.css"
 function Account(props) {
   const { apiKey } = props;
   const [accountData, setAccountData] = useState(null);
-  const [worldName, setWorldName] = useState('');
-  const [ageInYears, setAgeInYears] = useState(null);
+  const [worldName, setWorldName] = useState(''); 
+  const [ageInYears, setAgeInYears] = useState(null); 
 
   useEffect(() => {
     const fetchAccountData = async () => {
@@ -14,25 +14,29 @@ function Account(props) {
           // Fetch account data
           const response = await fetch(`https://api.guildwars2.com/v2/account?access_token=${apiKey}`);
           const data = await response.json();
+          // Update accountData state with fetched data
           setAccountData(data);
 
           // Fetch world data
           const worldResponse = await fetch(`https://api.guildwars2.com/v2/worlds/${data.world}`);
           const worldData = await worldResponse.json();
+          // Update worldName state with fetched world name
           setWorldName(worldData.name);
 
           // Calculate age in years
-          const createdDate = new Date(data.created); // Convert to milliseconds
+          // Convert to milliseconds
+          const createdDate = new Date(data.created);
           const currentDate = new Date();
           const ageInMilliseconds = currentDate - createdDate;
           const ageInYears = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24 * 365));
+          // Update ageInYears state with calculated age
           setAgeInYears(ageInYears);
         } catch (error) {
           console.error('Error fetching account info:', error);
         }
       }
     };
-
+    // Call the fetchAccountData function when apiKey changes
     fetchAccountData();
   }, [apiKey]);
 
